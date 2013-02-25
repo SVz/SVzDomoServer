@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<head>
+   <title>SVz Domotique Serveur</title>
+</head>
+<body>
+<style>
+.onoff
+{
+	width:64px;
+	height:64px;
+	padding:3px 2px 3px 3px;	
+	font-size:24px;
+	background:lightgray;
+}
+.onoff div
+{
+	width:36px;
+	height:36px;
+	min-height:18px;	
+	background:lightgray;
+	overflow:hidden;
+	border-top:1px solid gray;
+	border-right:1px solid white;
+	border-bottom:1px solid white;
+	border-left:1px solid gray;			
+	margin:0 auto;
+	xpadding-top:2px;
+	text-align:center;	
+}
+</style>
+<script>
+var buttonstate=0;
+function onoff(element)
+{
+	buttonstate= 1 - buttonstate;
+	var blabel, bstyle, bcolor;
+	if(buttonstate)
+	{
+		blabel="on";
+		bstyle="green";
+		bcolor="lightgreen";
+	}
+	else
+	{
+		blabel="off";
+		bstyle="lightgray";
+		bcolor="gray";
+	}
+	var child=element.firstChild;
+	child.style.background=bstyle;
+	child.style.color=bcolor;
+	child.innerHTML=blabel;
+}
+</script>
+
+   <h1>Liste des lampes</h1>
+
+   {% for pin in pins %}
+   <p>La {{ pins[pin].name }}
+   <img class="alignleft" src="/static/{{ pins[pin].image }}" alt="" width="122" height="177" />
+   {% if pins[pin].state == 'on' %}
+       <a href="/{{pin}}/off"><button class="onoff" onclick="onoff(this)"><div>on</div></button></a>
+   {% else %}
+       <a href="/{{pin}}/on"><button class="onoff" onclick="onoff(this)"><div>off</div></button></a>
+   {% endif %}
+   </p>
+   {% endfor %}
+
+</body>
+</html>
+
