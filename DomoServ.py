@@ -58,7 +58,6 @@ def action(changePin, action):
       'message' : message,
       'pins' : pins
    }
- 
    return render_template('main.html', **templateData)
 
 if __name__ == "__main__":
