@@ -14,7 +14,9 @@ basic_auth = BasicAuth(app)
 
 pins = {
    1 : {'name' : 'Lampe baie', 'state' : 'off', 'code' : '87654321', 'image' : 'baie.jpg'},
-   2 : {'name' : 'Lampe tele', 'state' : 'off', 'code' : '12345678', 'image' : 'tele.jpg'}
+   2 : {'name' : 'Lampe tele', 'state' : 'off', 'code' : '12345678', 'image' : 'tele.jpg'},
+   3 : {'name' : 'Lampe tele', 'state' : 'off', 'code' : '12345678', 'image' : 'tele.jpg'},
+   4 : {'name' : 'Lampe baie', 'state' : 'off', 'code' : '87654321', 'image' : 'baie.jpg'},
    }
 
 @app.route("/")
