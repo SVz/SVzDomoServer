@@ -44,8 +44,6 @@ ul.polaroids li:nth-child(11n) a { position: relative; left: -5px; top: 3px; }
 
 ul.polaroids li.messy a { margin-top: -375px; margin-left: 160px; -webkit-transform: rotate(-5deg); -moz-transform: rotate(-5deg); }
 
-ul.polaroids a:hover { -webkit-transform: scale(1.25); -moz-transform: scale(1.25); position: relative; z-index: 5; }
-
 .onoffswitch {
     position: relative; width: 90px;
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
