@@ -13,10 +13,9 @@ app.config['BASIC_AUTH_FORCE'] = True
 basic_auth = BasicAuth(app)
 
 pins = {
-   1 : {'name' : 'Lampe baie', 'state' : 'off', 'code' : '87654321', 'image' : 'baie.jpg'},
-   2 : {'name' : 'Lampe tele', 'state' : 'off', 'code' : '12345678', 'image' : 'tele.jpg'},
-   3 : {'name' : 'Lampe tele', 'state' : 'off', 'code' : '12345678', 'image' : 'tele.jpg'},
-   4 : {'name' : 'Lampe baie', 'state' : 'off', 'code' : '87654321', 'image' : 'baie.jpg'},
+   1 : {'name' : 'Lampe baie', 'state' : 'off', 'Ecode' : '87654321', 'Rcode' : '0','image' : 'baie.jpg'},
+   2 : {'name' : 'Lampe tele', 'state' : 'off', 'Ecode' : '12345678', 'Rcode' : '0','image' : 'tele.jpg'},
+   3 : {'name' : 'Volet Jardin', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '2','image' : 'tele.jpg'}
    }
 
 @app.route("/")
@@ -32,26 +31,27 @@ def main():
 def action(changePin, action):
    changePin = int(changePin)
    deviceName = pins[changePin]['name']
-   code = pins[changePin]['code']
+   Ecode = pins[changePin]['Ecode']
+   Rcode = pins[changePin]['Rcode']
 
    if action == "on":
-      command = "radioEmission 6 " + code + " 1 on"
+      command = "radioEmission 6 " + Ecode + " " + Rcode + " on"
       os.system(pathexe + command)
       message = "Changement du status de : " + deviceName + " on."
       pins[changePin]['state'] = 'on'
 
    if action == "off":
-      command = "radioEmission 6 " + code + " 1 off"
+      command = "radioEmission 6 " + Ecode + " " + Rcode + " off"
       os.system(pathexe + command)
       message = "Changement du status de : " + deviceName + " off."
       pins[changePin]['state'] = 'off'
 
    if action == "toggle":
       if pins[changePin]['state'] == 'on':
-          command = "radioEmission 6 " + code + " 1 off"
+          command = "radioEmission 6 " + Ecode + " " + Rcode + " off"
           pins[changePin]['state'] = 'off'
       else :
-          command = "radioEmission 6 " + code + " 1 on"
+          command = "radioEmission 6 " + Ecode + " " + Rcode + " on"
           pins[changePin]['state'] = 'on'
       os.system(pathexe + command)
       message = "Permutter : " + deviceName + "."
