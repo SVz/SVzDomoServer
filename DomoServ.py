@@ -8,14 +8,15 @@ app = Flask(__name__)
 pathexe = "/home/pi/git/SVzDomoServer/"
 
 app.config['BASIC_AUTH_USERNAME'] = 'SVz'
-app.config['BASIC_AUTH_PASSWORD'] = '1000ene'
+app.config['BASIC_AUTH_PASSWORD'] = '1000enes'
 app.config['BASIC_AUTH_FORCE'] = True
 basic_auth = BasicAuth(app)
 
 pins = {
-   1 : {'name' : 'Lampe baie', 'state' : 'off', 'Ecode' : '87654321', 'Rcode' : '0','image' : 'baie.jpg'},
-   2 : {'name' : 'Lampe tele', 'state' : 'off', 'Ecode' : '12345678', 'Rcode' : '0','image' : 'tele.jpg'},
-   3 : {'name' : 'Volet Jardin', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '2','image' : 'tele.jpg'}
+   1 : {'name' : 'Lampe Baie', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '0','image' : 'baie.jpg'},
+   2 : {'name' : 'Lampe Tele', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '1','image' : 'tele.jpg'},
+   3 : {'name' : 'Volet Rue', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '2','image' : 'volet.jpg'},
+   4 : {'name' : 'XBMC', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '3','image' : 'XBMC.jpg'}
    }
 
 @app.route("/")
