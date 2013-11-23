@@ -3,7 +3,7 @@ $(function() {
     var lamp = $(e.currentTarget)
     toggle(lamp.data("light"), lamp)
   });
-  $(".container").swipe({
+  $("body").swipe({
     swipeLeft:function(event, direction, distance, duration, fingerCount) {
       //This only fires when the user swipes left
       window.location = "/video"

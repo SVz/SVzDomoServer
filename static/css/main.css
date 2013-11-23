@@ -1,5 +1,12 @@
 body {
-  background-image: url("/static/img/retina_wood.png")
+  background-image: url("/static/img/retina_wood.png");
+  width: 100%;
+  height: 100%;
+}
+
+html {
+    width: 100%;
+    height: 100%;
 }
 
 .container {
@@ -103,3 +110,4 @@ ul.polaroids li.messy a { margin-top: -375px; margin-left: 160px; -webkit-transf
     border-bottom: 1px solid #333333;
     border-left: 1px solid #CCCCCC;
    }
+
