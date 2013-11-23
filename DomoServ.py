@@ -26,7 +26,16 @@ def main():
    templateData = {
       'pins' : pins
        }
-   return render_template('main.html', **templateData) 
+   return render_template('photo.html', **templateData) 
+
+@app.route("/video")
+def video():
+  return render_template('video.html')
+
+@app.route("/video/<action>")
+def videoStart():
+  os.system("/home/pi/CamCapt.deamon "+action)
+  return "OK"
 
 @app.route("/<changePin>/<action>")
 def action(changePin, action):
@@ -65,4 +74,3 @@ def action(changePin, action):
 
 if __name__ == "__main__":
    app.run(host='0.0.0.0', port=8000, debug=True)
-

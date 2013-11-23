@@ -1,0 +1,14 @@
+ {% extends "main.html" %}
+{% block content %}
+ <ul class="polaroids">
+
+
+{% for pin in pins %}
+  <li>
+      <a href="#" class="text {{pins[pin].state}}" id="{{pin}}" data-light="{{pins[pin].state}}" title="{{pins[pin].name}}">
+        <img src="/static/img/{{pins[pin].image}}" alt="TELE" class="light {{pins[pin].state}}"/>
+      </a>
+  </li>
+{% endfor %}
+ </ul>
+ {% endblock %}

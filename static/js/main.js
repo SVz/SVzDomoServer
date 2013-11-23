@@ -3,6 +3,10 @@ $(function() {
     var lamp = $(e.currentTarget)
     toggle(lamp.data("light"), lamp)
   });
+
+  $('startvideo').on("click", function(e) {
+    
+  })
 });
 
 function tog(st) { return st=="on" ? "off" : "on"}
