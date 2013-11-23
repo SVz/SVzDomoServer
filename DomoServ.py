@@ -33,9 +33,9 @@ def video():
   return render_template('video.html')
 
 @app.route("/video/<action>")
-def videoStart():
+def videoStart(action):
   os.system("/home/pi/CamCapt.deamon "+action)
-  return "OK"
+  return render_template("video.html")
 
 @app.route("/<changePin>/<action>")
 def action(changePin, action):
