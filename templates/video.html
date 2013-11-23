@@ -1,10 +1,12 @@
 {% extends "main.html" %}
 {% block content %}
-	<a class="button" href="/video/start" id="startvideo">Start</a>
-	<a href="/video/stop" id="stopvideo">Stop</a>
+	<div class="actions">
+	<a class="start" href="/video/start" id="startvideo">Start</a>
+	<a class="stop" href="/video/stop" id="stopvideo">Stop</a>
+	</div>
     <div>
     	<center>
-    		<img src="http://88.124.156.1:8090/?action=stream" alt="cam stream" height="480" width="640"/>
+    		<img class="vid" src="http://88.124.156.1:8090/?action=stream" alt="cam stream" height="480" width="640"/>
     	</center>
     </div>
 {% endblock %}
