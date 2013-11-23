@@ -2,6 +2,7 @@ import os
 
 from flask import Flask, render_template, request
 from flask.ext.basicauth import BasicAuth
+from flask import abort, redirect, url_for
 
 app = Flask(__name__)
 
@@ -34,8 +35,8 @@ def video():
 
 @app.route("/video/<action>")
 def videoStart(action):
-  os.system("/home/pi/CamCapt.deamon "+action)
-  return render_template("video.html")
+  os.system("/home/pi/CamCapt.daemon "+action)
+  return redirect(url_for("video"))
 
 @app.route("/<changePin>/<action>")
 def action(changePin, action):
