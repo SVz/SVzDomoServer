@@ -1,5 +1,10 @@
  {% extends "main.html" %}
 {% block content %}
+
+ <div class="voice">
+   <img src="/static/img/mic.jpg" id="voice"/>
+ </div>
+<div>
  <ul class="polaroids">
 
 
@@ -10,7 +15,9 @@
       </a>
   </li>
 {% endfor %}
+<script>
+	var pins = [ {% for pin in pins %}{id: {{pin}}, name: "{{pins[pin].name}}"},{% endfor %} ]
+</script>
  </ul>
- <button id="voice">Voice</button>
- <div id="speech" style="font-size: 20px;"></div>
+ </div>
  {% endblock %}
