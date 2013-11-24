@@ -43,15 +43,14 @@ $(function() {
     if(mbKey) {
       var pin = _.find(pins, function(p) {
         return _.every(p.names, function(ap) {
-          console.log(res, ap);
           return _.contains(res, ap);
         })
       });
       //$('#debug').append("<p>"+'/'+pin.id+"/"+mbKey.action+"</p>")
-      if(pin) $.get('/'+pin.id+"/"+mbKey.action)
-      else $('#voice').text(res)
-    } else {
-      $('#voice').text(res)
+      if(pin) {
+        $.get('/'+pin.id+"/"+mbKey.action)
+        turn($('#'+pin.id), mbKey.action)
+      }
     }
   }
 
@@ -71,12 +70,13 @@ $(function() {
 function tog(st) { return st=="on" ? "off" : "on"}
 function toggle(state, lamp) {
   var next = tog(state)
-  lamp.removeClass(state).addClass(next)
-  lamp.data("light", next)
-  lamp.find("img").removeClass(state).addClass(next)
+  turn(lamp, next)
   $.get('/'+lamp.attr('id')+'/'+next)
 }
 
-function turnOff(lamp) {
-  console.log("toto")
+function turn(lamp, state) {
+  var other = tog(state)
+  lamp.removeClass(other).addClass(state)
+  lamp.data("light", state)
+  lamp.find("img").removeClass(other).addClass(state)
 }
