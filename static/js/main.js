@@ -36,8 +36,9 @@ $(function() {
     }
 
   }
-  
+
   $('#voice').on("click", function(e) {
+    e.preventDefault();
     if(recording) {
       recognition.stop();
       recording = false;
