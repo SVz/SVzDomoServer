@@ -24,7 +24,7 @@ $(function() {
 
   recognition.onresult = function(e) {
     var res = e.results[0][0].transcript.replace(/é/g, "e").toUpperCase();
-    $('#debug').append("<p>"+res+"</p>");
+    //$('#debug').append("<p>"+res+"</p>");
     var mbKey = _.find(keywords, function(k) {
       return _.contains(res, k.word)
     })
@@ -33,7 +33,7 @@ $(function() {
       var pin = _.find(pins, function(p) {
         return _.contains(res, p.name.toUpperCase())
       });
-      $('#debug').append("<p>"+'/'+pin.id+"/"+mbKey.action+"</p>")
+      //$('#debug').append("<p>"+'/'+pin.id+"/"+mbKey.action+"</p>")
       $.get('/'+pin.id+"/"+mbKey.action)
     }
 
@@ -41,14 +41,14 @@ $(function() {
 
   $('#voice').on("click", function(e) {
     e.preventDefault();
-    if(recording) {
-      recognition.stop();
-      recording = false;
-    } else {
+    // if(recording) {
+    //   recognition.stop();
+    //   recording = false;
+    // } else {
       console.log("starting")
       recognition.start();
       recording = true;
-    }
+    //}
   })
 });
 
