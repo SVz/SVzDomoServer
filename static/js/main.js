@@ -23,7 +23,7 @@ $(function() {
 
   recognition.onresult = function(e) {
     var res = e.results[0][0].transcript.replace(/é/g, "e");
-
+    $('#debug').append("<p>"+res+"</p>");
     var mbKey = _.find(keywords, function(k) {
       return _.contains(res, k.word)
     })
