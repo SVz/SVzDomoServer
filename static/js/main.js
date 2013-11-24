@@ -28,6 +28,7 @@ $(function() {
   //recognition.continuous = true;
   //recognition.interimResults = true;
   //var res = "ALLUMER LA LAMPE DE LA TELE"
+  pins = _.map(pins, function(pi) {return {id: pi.id, names: pi.name.toUpperCase().split(" ")}})
 
 
   recognition.onresult = function(e) {
@@ -38,7 +39,6 @@ $(function() {
       return _.contains(res, k.word)
     })
 
-    pins = _.map(pins, function(pi) {return {id: pi.id, names: pi.name.toUpperCase().split(" ")}})
 
     if(mbKey) {
       var pin = _.find(pins, function(p) {
