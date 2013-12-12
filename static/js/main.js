@@ -18,11 +18,8 @@ $(function() {
     }
   });
 
-  console.log(crons)
-
   _.forEach(crons, function(time, idx) {
 
-    console.log(time, idx)
     $('#cron-'+idx).cron({
             initial: time,
             onChange: function() {
