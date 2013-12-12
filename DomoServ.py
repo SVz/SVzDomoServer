@@ -21,7 +21,7 @@ pins = {
    4 : {'name' : 'XBMC', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '3','image' : 'XBMC.jpg'}
    }
 
-cron = CronTab(user="sv")
+cron = CronTab(user="pi")
 
 def makeComment(lamp, action, time):
   return lamp+":"+action+":"+time
