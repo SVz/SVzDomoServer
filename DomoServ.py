@@ -3,6 +3,7 @@ import os
 from flask import Flask, render_template, request
 from flask.ext.basicauth import BasicAuth
 from flask import abort, redirect, url_for
+from crontab import CronTab
 
 app = Flask(__name__)
 
@@ -20,14 +21,56 @@ pins = {
    4 : {'name' : 'XBMC', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '3','image' : 'XBMC.jpg'}
    }
 
+cron = CronTab(user="sv")
+
+def makeComment(lamp, action, time):
+  return lamp+":"+action+":"+time
+
+def parseJob(job):
+  comments = job.comment.split(':')
+  return {
+  'time':str(comments[2]), 
+  'id':str(comments[0]), 
+  'action':str(comments[1]),
+  'pic':str(pins[int(comments[0])]['image'])
+  }
+
 @app.route("/")
 @basic_auth.required
 def main():
-
    templateData = {
       'pins' : pins
        }
    return render_template('photo.html', **templateData) 
+
+@app.route("/scheduler")
+def shceduler():
+  crons = map(parseJob, cron)
+  print(crons)
+  templateData = {
+    'crons': crons
+  }
+  return render_template("scheduler.html", **templateData)
+
+@app.route("/schedule")
+def schedule():
+  time = request.args.get("cron")
+  action = request.args.get("action")
+  lamp = request.args.get("id")
+  command = "curl --user SVz:1000ene http://127.0.0.1:8000/" + lamp+"/"+ action + " >/dev/null"
+  job = cron.new(command=command, comment=makeComment(lamp, action, time))
+  job.setall(time)
+  cron.write()
+  return "OK"
+
+@app.route("/deschedule")
+def deschedule():
+  lamp = request.args.get("id")
+  action = request.args.get("action")
+  time = request.args.get("cron")
+  cron.remove_all(comment=makeComment(lamp, action, time))
+  cron.write()
+  return "OK"
 
 @app.route("/video")
 def video():

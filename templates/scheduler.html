@@ -1,0 +1,18 @@
+{% extends "main.html" %}
+{% block content %}
+  {% for cron in crons %}
+    <div class="cron">
+      <img src="/static/img/{{cron.pic}}" class="pic">
+      <div class="time">
+        <div class="crontime" id="cron-{{loop.index0}}" data-cron="{{cron.time}}"></div>
+      </div> 
+      <a class="start statu" href="/video/start">Deactivate</a>
+    </div>
+  {% endfor %}
+  <script>
+  var crons = []
+  {% for cron in crons %}
+    crons.push("{{cron.time}}")
+  {% endfor %}
+  </script>
+{% endblock %}
