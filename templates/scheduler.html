@@ -3,6 +3,7 @@
   {% for cron in crons %}
     <div class="cron">
       <img src="/static/img/{{cron.pic}}" class="pic">
+      <img src="static/img/{{cron.action}}.png" class="action">
       <div class="time">
         <div class="crontime" id="cron-{{loop.index0}}" data-cron="{{cron.time}}"></div>
       </div> 
