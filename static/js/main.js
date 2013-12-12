@@ -6,13 +6,32 @@ $(function() {
   $("body").swipe({
     swipeLeft:function(event, direction, distance, duration, fingerCount) {
       //This only fires when the user swipes left
-      window.location = "/video"
+      if(window.location.pathname == '/')
+        window.location = "/video"
+      else window.location = "/"
     },
     swipeRight:function(event, direction, distance, duration, fingerCount) {
       //This only fires when the user swipes left
-      window.location = "/"
+      if(window.location.pathname == '/')
+        window.location = "/scheduler"
+      else window.location = "/"
     }
   });
+
+  console.log(crons)
+
+  _.forEach(crons, function(time, idx) {
+
+    console.log(time, idx)
+    $('#cron-'+idx).cron({
+            initial: time,
+            onChange: function() {
+              console.log("change")
+            },
+            useGentleSelect: true
+        });
+  })
+
 
   var keywords = [
     {word: "ALLUMER", action: "on"}, 
