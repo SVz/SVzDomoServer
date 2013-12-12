@@ -7,7 +7,11 @@
       <div class="time">
         <div class="crontime" id="cron-{{loop.index0}}" data-cron="{{cron.time}}"></div>
       </div> 
-      <a class="start statu" href="/video/start">Deactivate</a>
+      {% if cron.activated %}
+      <a class="stop statu" href="/schedule/deactivate?cron={{cron.time}}&action={{cron.action}}&id={{cron.id}}">Deactivate</a>
+      {% else %}
+      <a class="start statu" href="/schedule/activate?cron={{cron.time}}&action={{cron.action}}&id={{cron.id}}">Activate</a>
+      {% endif %}
     </div>
   {% endfor %}
   <script>

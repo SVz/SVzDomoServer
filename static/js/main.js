@@ -23,9 +23,8 @@ $(function() {
     $('#cron-'+idx).cron({
             initial: time,
             onChange: function() {
-              console.log("change")
             },
-            useGentleSelect: true
+            useGentleSelect: false
         });
   })
 

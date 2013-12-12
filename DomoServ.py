@@ -32,7 +32,8 @@ def parseJob(job):
   'time':str(comments[2]), 
   'id':str(comments[0]), 
   'action':str(comments[1]),
-  'pic':str(pins[int(comments[0])]['image'])
+  'pic':str(pins[int(comments[0])]['image']),
+  'activated': job.is_enabled()
   }
 
 @app.route("/")
@@ -44,9 +45,8 @@ def main():
    return render_template('photo.html', **templateData) 
 
 @app.route("/scheduler")
-def shceduler():
+def scheduler():
   crons = map(parseJob, cron)
-  print(crons)
   templateData = {
     'crons': crons
   }
@@ -60,8 +60,22 @@ def schedule():
   command = "curl --user SVz:1000ene http://127.0.0.1:8000/" + lamp+"/"+ action + " >/dev/null"
   job = cron.new(command=command, comment=makeComment(lamp, action, time))
   job.setall(time)
+  job.enable(False)
   cron.write()
   return "OK"
+
+@app.route("/schedule/<actionJob>")
+def activate_deactivate(actionJob):
+  time = request.args.get("cron")
+  action = request.args.get("action")
+  lamp = request.args.get("id")
+  job = cron.find_comment(makeComment(lamp, action, time))[0]
+  if actionJob == "activate" :
+    job.enable()
+  else :
+    job.enable(False)
+  cron.write()
+  return redirect(url_for("scheduler"))
 
 @app.route("/deschedule")
 def deschedule():
