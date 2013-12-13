@@ -48,9 +48,11 @@ def main():
 def scheduler():
   crons = map(parseJob, cron)
   templateData = {
-    'crons': crons
+    'crons': crons,
+    'pins' : pins
   }
   return render_template("scheduler.html", **templateData)
+
 
 @app.route("/schedule")
 def schedule():

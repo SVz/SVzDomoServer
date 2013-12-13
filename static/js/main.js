@@ -18,7 +18,9 @@ $(function() {
     }
   });
 
-  _.forEach(crons, function(time, idx) {
+
+  if(typeof crons != 'undefined')
+    _.forEach(crons, function(time, idx) {
 
     $('#cron-'+idx).cron({
             initial: time,
@@ -28,6 +30,19 @@ $(function() {
         });
   })
 
+  var newcron = $('#newcron').cron({
+            onChange: function() {
+            },
+            useGentleSelect: false
+        });
+
+
+  $('#submitcron').click(function(e) {
+    e.preventDefault()
+    $.get('/schedule', {id: $("[name=lamp]").val(), action: $("[name=action]").val(), cron: newcron.cron("value")}).success(function() {
+      window.location("/scheduler")
+    })
+  })
 
   var keywords = [
     {word: "ALLUMER", action: "on"}, 
@@ -43,7 +58,7 @@ $(function() {
   //recognition.continuous = true;
   //recognition.interimResults = true;
   //var res = "ALLUMER LA LAMPE DE LA TELE"
-  pins = _.map(pins, function(pi) {return {id: pi.id, names: pi.name.toUpperCase().split(" ")}})
+  if(typeof pins != 'undefined') pins = _.map(pins, function(pi) {return {id: pi.id, names: pi.name.toUpperCase().split(" ")}})
 
 
   recognition.onresult = function(e) {

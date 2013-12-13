@@ -1,5 +1,28 @@
 {% extends "main.html" %}
 {% block content %}
+  <div class="newschedule">
+    <div class="toadd" style="display: inline-block; margin-left: 20px">
+      <form method="post" action="/schedule/new">
+        
+        <select name="lamp" class="select">
+          {% for lamp in pins %}
+            <option value="{{lamp}}">{{pins[lamp].name}}</option>
+          {% endfor %}
+        </select>
+
+        <select name="action" class="select">
+          <option>on</option>
+          <option>off</option>
+        </select>
+
+        <div style="display: inline-block" class="fonts select">
+          <div id="newcron"></div>
+        </div>
+
+        <input type="submit" id="submitcron" class="stop" style="margin-bottom: 20px" value="New Program">
+      </form>
+    </div>
+  </div>
   {% for cron in crons %}
     <div class="cron">
       <img src="/static/img/{{cron.pic}}" class="pic">
@@ -7,11 +30,13 @@
       <div class="time">
         <div class="crontime" id="cron-{{loop.index0}}" data-cron="{{cron.time}}"></div>
       </div> 
+      <a class="myButton statu" href="/schedule/activate?cron={{cron.time}}&action={{cron.action}}&id={{cron.id}}" style="width: 60px">Delete</a>
       {% if cron.activated %}
       <a class="stop statu" href="/schedule/deactivate?cron={{cron.time}}&action={{cron.action}}&id={{cron.id}}">Deactivate</a>
       {% else %}
       <a class="start statu" href="/schedule/activate?cron={{cron.time}}&action={{cron.action}}&id={{cron.id}}">Activate</a>
       {% endif %}
+
     </div>
   {% endfor %}
   <script>
