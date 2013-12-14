@@ -62,7 +62,6 @@ def schedule():
   command = "curl --user SVz:1000ene http://127.0.0.1:8000/" + lamp+"/"+ action + " >/dev/null"
   job = cron.new(command=command, comment=makeComment(lamp, action, time))
   job.setall(time)
-  job.enable(False)
   cron.write()
   return "OK"
 
