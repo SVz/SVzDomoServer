@@ -19,7 +19,7 @@ $(function() {
   });
 
 
-  if(typeof crons != 'undefined')
+  if(typeof crons != 'undefined') {
     _.forEach(crons, function(time, idx) {
 
     $('#cron-'+idx).cron({
@@ -28,13 +28,16 @@ $(function() {
             },
             useGentleSelect: false
         });
-  })
+    })
 
-  var newcron = $('#newcron').cron({
-            onChange: function() {
-            },
-            useGentleSelect: false
-        });
+    var newcron = $('#newcron').cron({
+      onChange: function() {
+      },
+      useGentleSelect: false
+    });
+  }
+
+  
 
 
   $('#submitcron').click(function(e) {
