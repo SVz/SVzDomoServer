@@ -34,7 +34,7 @@ $(function() {
       onChange: function() {
       },
       useGentleSelect: false
-    });
+   } );
   }
 
   
@@ -42,8 +42,9 @@ $(function() {
 
   $('#submitcron').click(function(e) {
     e.preventDefault()
+    console.log("toto")
     $.get('/schedule', {id: $("[name=lamp]").val(), action: $("[name=action]").val(), cron: newcron.cron("value")}).success(function() {
-      window.location("/scheduler")
+      window.location = "/scheduler"
     })
   })
 

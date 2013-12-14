@@ -19,22 +19,22 @@
           <div id="newcron"></div>
         </div>
 
-        <input type="submit" id="submitcron" class="stop" style="margin-bottom: 20px" value="New Program">
+        <input type="submit" id="submitcron" class="newprogram" style="margin-bottom: 20px" value="Program">
       </form>
     </div>
   </div>
   {% for cron in crons %}
     <div class="cron">
-      <img src="/static/img/{{cron.pic}}" class="pic">
-      <img src="static/img/{{cron.action}}.png" class="action">
+      <img src="/static/img/{{cron.pic}}" class="pic light {{cron.action}}">
+      <!-- <img src="static/img/{{cron.action}}.png" class="action"> -->
       <div class="time">
         <div class="crontime" id="cron-{{loop.index0}}" data-cron="{{cron.time}}"></div>
       </div> 
-      <a class="myButton statu" href="/schedule/activate?cron={{cron.time}}&action={{cron.action}}&id={{cron.id}}" style="width: 60px">Delete</a>
+      <a class="delete statu" href="/deschedule?cron={{cron.time}}&action={{cron.action}}&id={{cron.id}}">Delete</a>
       {% if cron.activated %}
-      <a class="stop statu" href="/schedule/deactivate?cron={{cron.time}}&action={{cron.action}}&id={{cron.id}}">Deactivate</a>
+      <a class="deactivate statu" href="/schedule/deactivate?cron={{cron.time}}&action={{cron.action}}&id={{cron.id}}">Deactivate</a>
       {% else %}
-      <a class="start statu" href="/schedule/activate?cron={{cron.time}}&action={{cron.action}}&id={{cron.id}}">Activate</a>
+      <a class="activate statu" href="/schedule/activate?cron={{cron.time}}&action={{cron.action}}&id={{cron.id}}">Activate</a>
       {% endif %}
 
     </div>

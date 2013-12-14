@@ -86,7 +86,7 @@ def deschedule():
   time = request.args.get("cron")
   cron.remove_all(comment=makeComment(lamp, action, time))
   cron.write()
-  return "OK"
+  return redirect(url_for("scheduler"))
 
 @app.route("/video")
 def video():
