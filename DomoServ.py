@@ -59,7 +59,7 @@ def schedule():
   time = request.args.get("cron")
   action = request.args.get("action")
   lamp = request.args.get("id")
-  command = "curl --user SVz:1000ene http://127.0.0.1:8000/" + lamp+"/"+ action + " >/dev/null"
+  command = "curl --user SVz:1000enes http://127.0.0.1:8000/" + lamp+"/"+ action + " >/dev/null"
   job = cron.new(command=command, comment=makeComment(lamp, action, time))
   job.setall(time)
   cron.write()
