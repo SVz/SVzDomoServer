@@ -18,13 +18,6 @@ $(function() {
     }
   });
 
-
-
-
-
-
-
-
   $('.turnon').click(function(e) {
     var lamp = $(e.currentTarget).parent()
     turn(lamp, "on")
@@ -35,16 +28,6 @@ $(function() {
     turn(lamp, "off")
     return false;
   })
-
-
-
-
-
-
-
-
-  
-
 
   if(typeof crons != 'undefined') {
     _.forEach(crons, function(time, idx) {
@@ -140,4 +123,5 @@ function turn(lamp, state) {
   lamp.removeClass(other).addClass(state)
   lamp.data("light", state)
   lamp.find("img").removeClass(other).addClass(state)
+  $.get('/'+lamp.attr('id')+'/'+state)
 }
