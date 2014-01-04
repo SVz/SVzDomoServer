@@ -12,7 +12,9 @@
 {% for pin in pins %}
   <li>
       <a href="#" class="text {{pins[pin].state}}" id="{{pin}}" data-light="{{pins[pin].state}}" title="{{pins[pin].name}}">
+        <div class="turnon">+</div>
         <img src="/static/img/{{pins[pin].image}}" alt="TELE" class="light {{pins[pin].state}}"/>
+        <div class="turnoff">-</div>
       </a>
   </li>
 {% endfor %}

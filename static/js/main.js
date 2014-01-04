@@ -19,6 +19,33 @@ $(function() {
   });
 
 
+
+
+
+
+
+
+  $('.turnon').click(function(e) {
+    var lamp = $(e.currentTarget).parent()
+    turn(lamp, "on")
+    return false;
+  })
+  $('.turnoff').click(function(e) {
+    var lamp = $(e.currentTarget).parent()
+    turn(lamp, "off")
+    return false;
+  })
+
+
+
+
+
+
+
+
+  
+
+
   if(typeof crons != 'undefined') {
     _.forEach(crons, function(time, idx) {
 
