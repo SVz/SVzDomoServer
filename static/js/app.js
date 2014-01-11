@@ -29,7 +29,7 @@ Ext.application({
               }
 
               if(tgt.hasCls('on')) {
-                Ext.Ajax.request({url: '/'+record.data.Rcode+'/on', , disableCaching: false})
+                Ext.Ajax.request({url: '/'+record.data.Rcode+'/on', disableCaching: false})
               }
             }
           },
@@ -63,8 +63,8 @@ Ext.application({
                   '{name}',
                 '</div>',
                 '<div class="actions">',
-                  '<button class="turn {state}" data-id="{Rcode}">On</button>',
-                  '<button class="turn {state}" data-id="{Rcode}">Off</button>',
+                  '<button class="turn on" data-id="{Rcode}">On</button>',
+                  '<button class="turn off" data-id="{Rcode}">Off</button>',
                 '</div>',
               '</div>')
         },
@@ -74,13 +74,3 @@ Ext.application({
     }) 
   }
 });
-
-// $('.on').click(function(e) {
-//   console.log(e, "zzqdzd")
-// })
-
-var on = function(id) {
-  $('.off[data-id='+id+']').removeClass('active')
-  $('.on[data-id='+id+']').addClass('active')
-
-}
