@@ -443,8 +443,12 @@ ul.polaroids li.messy a { margin-top: -375px; margin-left: 160px; -webkit-transf
 }
 
 .vid {
-    border: 20px solid white;
-    margin-top: 20px;
+    border: 5px solid #3866A3;
+    border-radius: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 40px;
+    display: block;
 }
 
 .voice {
