@@ -22,7 +22,7 @@ pins = [
    {'name' : 'Lampe Plafond', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '4','image' : 'plafond.jpg'}
    ]
 
-cron = CronTab(user="sv")
+cron = CronTab(user="pi")
 
 def makeComment(lamp, action, time):
   return lamp+":"+action+":"+time
