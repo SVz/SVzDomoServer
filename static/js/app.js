@@ -69,7 +69,7 @@ Ext.application({
               '</div>')
         },
         {title: 'Schedule'},
-        {title: 'View', html:'<img class="vid" src="http://88.124.156.1:8090/?action=stream" alt="cam stream" height="480" width="640"/>'}
+        {title: 'View', html:'<div class="vid-container"><img class="vid" src="http://88.124.156.1:8090/?action=stream" alt="cam stream"/></div>'}
       ]
     }) 
   }
