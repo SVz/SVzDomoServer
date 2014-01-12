@@ -16,10 +16,10 @@ basic_auth = BasicAuth(app)
 
 pins = [
    {'name' : 'Lampe Rue', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '0','image' : 'baie.jpg'},
-   {'name' : 'Lampe Tele', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '1','image' : 'tele.jpg'},
+   {'name' : 'Lampe Plafond', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '1','image' : 'plafond.jpg'},
    {'name' : 'Volet Rue', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '2','image' : 'volet.jpg'},
    {'name' : 'XBMC', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '3','image' : 'XBMC.jpg'},
-   {'name' : 'Lampe Plafond', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '4','image' : 'plafond.jpg'}
+   {'name' : 'Lampe Tele', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '4','image' : 'tele.jpg'}
    ]
 
 cron = CronTab(user="pi")

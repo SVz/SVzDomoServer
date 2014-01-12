@@ -11,7 +11,9 @@ Ext.application({
       tabBar: {
         layout: { pack: 'center' }
       },
+      activeItem : 1,
       items: [
+        {title: 'Schedule'},
         {
           title: 'Command',
           xtype: 'dataview',
@@ -68,7 +70,6 @@ Ext.application({
                 '</div>',
               '</div>')
         },
-        {title: 'Schedule'},
         {title: 'View', html:'<div class="vid-container"><img class="vid" src="http://88.124.156.1:8090/?action=stream" alt="cam stream"/></div>'}
       ]
     }) 
