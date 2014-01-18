@@ -12,6 +12,7 @@ var pinStore = Ext.create('Ext.data.Store', {
         type: 'ajax',
         // Modify this line with your API key, pretty please...
         url: '/pins.json',
+        method: 'GET',
 
         reader: {
             type: 'json',
@@ -19,6 +20,21 @@ var pinStore = Ext.create('Ext.data.Store', {
         }
     }
 })
+
+var cronStore = Ext.create('Ext.data.Store', {
+            autoLoad: true,
+            fields: [{name: 'action', convert: function(newValue, model) {
+              return newValue.toUpperCase()
+            }}, 'activated', 'id', 'pic', 'time', 'hour', 'minute', 'day'],
+            proxy: {
+              type: 'ajax',
+              url: '/scheduler',
+              reader: {
+                type: 'json',
+                rootProperty: 'crons'
+              }
+            }
+          });
 
 Ext.application({
   /**
@@ -42,20 +58,7 @@ Ext.application({
             direction: 'vertical'
           },
           cls: 'dataview-basic',
-          store: {
-            autoLoad: true,
-            fields: [{name: 'action', convert: function(newValue, model) {
-              return newValue.toUpperCase()
-            }}, 'activated', 'id', 'pic', 'time', 'hour', 'minute', 'day'],
-            proxy: {
-              type: 'ajax',
-              url: '/scheduler',
-              reader: {
-                type: 'json',
-                rootProperty: 'crons'
-              }
-            }
-          },
+          store: cronStore,
           items: [
             {
               xtype: 'toolbar', 
@@ -75,7 +78,7 @@ Ext.application({
                           store: pinStore,
                           title: 'Object',
                           displayField: 'name',
-                          valueField: 'Rcode'
+                          valueField: 'name'
                           // data: [{text: '1', value: 1}, {text: '2', value: 2}, {text: '3', value: 3}]
                         },
                         {
@@ -85,6 +88,7 @@ Ext.application({
                         }],
                         listeners: {
                           change: function(p, lamp, opts) {
+                            console.log(p, lamp, opts)
                             if(!this.pickerTime) {
                               this.pickerTime = Ext.Viewport.add({
                                 xtype: 'picker',
@@ -93,9 +97,13 @@ Ext.application({
                                   change: function(p, time, opts) {
                                     console.log(lamp, time)
                                     Ext.Ajax.request({
-                                      url: '/'+record.data.Rcode+"/off", disableCaching: false,
-                                      params: {lamp: lamp.obj, action: lamp.action}
+                                      url: '/schedule', disableCaching: false, method: 'GET',
+                                      params: {id: pinStore.find('name', lamp.obj), action: lamp.action, cron: time.minute + ' ' + time.hour + ' * * *'},
+                                      success: function(response){
+                                        // pinStore.sync()
+                                      }
                                     });
+                                    cronStore.add({action: lamp.action, minute: time.minute, hour: time.hour, pic: pinStore.findRecord('name', lamp.obj).get('image')})
                                   }
                                 },
                                 slots: [{
@@ -161,7 +169,6 @@ Ext.application({
             itemtap: function(dataview, index, target, record, evt) {
               var tgt = Ext.get(evt.target)
               if(tgt.hasCls('off')) {
-                console.log('off')
                 Ext.Ajax.request({
                     url: '/'+record.data.xindex+"/off", disableCaching: false
                 });
