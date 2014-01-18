@@ -22,7 +22,8 @@ pins = [
    {'name' : 'XBMC', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '3','image' : 'XBMC.jpg'}
    ]
 
-cron = CronTab(user="pi")
+def cron(): 
+  return CronTab(user="pi")
 
 def makeComment(lamp, action, time):
   return lamp+":"+action+":"+time
@@ -57,8 +58,7 @@ def pinsData():
 
 @app.route("/scheduler")
 def scheduler():
-  cron = CronTab(user="pi")
-  crons = map(parseJob, cron)
+  crons = map(parseJob, cron())
   templateData = {
     'crons': crons
   }
@@ -71,9 +71,10 @@ def schedule():
   action = request.args.get("action")
   lamp = request.args.get("id")
   command = "curl --user SVz:1000enes http://127.0.0.1:8000/" + lamp+"/"+ action + " >/dev/null"
-  job = cron.new(command=command, comment=makeComment(lamp, action, time))
+  cr = cron()
+  job = cr.new(command=command, comment=makeComment(lamp, action, time))
   job.setall(time)
-  cron.write()
+  cr.write()
   return "OK"
 
 @app.route("/schedule/<actionJob>")
@@ -81,12 +82,13 @@ def activate_deactivate(actionJob):
   time = request.args.get("cron")
   action = request.args.get("action")
   lamp = request.args.get("id")
-  job = cron.find_comment(makeComment(lamp, action, time))[0]
+  cr = cron()
+  job = cr.find_comment(makeComment(lamp, action, time))[0]
   if actionJob == "activate" :
     job.enable()
   else :
     job.enable(False)
-  cron.write()
+  cr.write()
   return redirect(url_for("scheduler"))
 
 @app.route("/deschedule")
@@ -94,8 +96,9 @@ def deschedule():
   lamp = request.args.get("id")
   action = request.args.get("action")
   time = request.args.get("cron")
-  cron.remove_all(comment=makeComment(lamp, action, time))
-  cron.write()
+  cr = cron()
+  cr.remove_all(comment=makeComment(lamp, action, time))
+  cr.write()
   return 'OK'
 
 @app.route("/video")

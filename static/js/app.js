@@ -49,7 +49,7 @@ Ext.application({
       tabBar: {
         layout: { pack: 'center' }
       },
-      activeItem : 1,
+      activeItem : 0,
       items: [
         {
           title: 'Schedule',
@@ -85,7 +85,6 @@ Ext.application({
                 {text: 'Add new entry', ui: 'default',
                   handler: function() {
                     if(!this.picker) {
-                      console.log('picker')
                       this.picker = Ext.Viewport.add({
                         xtype: 'picker',
                         useTitles: true,
