@@ -61,16 +61,17 @@ Ext.application({
           store: cronStore,
           listeners: {
             itemtaphold: function(item, test, toto, model) {
-              console.log(item, test, toto, model)
               Ext.Msg.confirm('Delete Entry', 'Confirm deleting this entry ?', function(choice) {
-                Ext.Ajax.request({
-                  url: '/deschedule', disableCaching: false, method: 'GET',
-                  params: {id: model.data.index, action: model.data.action.toLowerCase(), cron: model.data.minute + ' ' + model.data.hour + ' * * *'},
-                  success: function(response){
-                    // pinStore.sync()
-                  }
-                });
-                cronStore.removeAt(model.data.xindex)
+                if(choice === 'yes') {
+                  Ext.Ajax.request({
+                    url: '/deschedule', disableCaching: false, method: 'GET',
+                    params: {id: model.data.index, action: model.data.action.toLowerCase(), cron: model.data.minute + ' ' + model.data.hour + ' * * *'},
+                    success: function(response){
+                      // pinStore.sync()
+                    }
+                  });
+                  cronStore.removeAt(model.data.xindex)
+                }
               })
             }
           },
