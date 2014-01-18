@@ -30,7 +30,10 @@ def makeComment(lamp, action, time):
 def parseJob(job):
   comments = job.comment.split(':')
   return {
-  'time':str(comments[2]), 
+  'time':str(comments[2]),
+  'hour': str(job.hour),
+  'minute': str(job.minute),
+  'day': str(job.dom), 
   'id':str(comments[0]), 
   'action':str(comments[1]),
   'pic':str(pins[int(comments[0])]['image']),
@@ -56,10 +59,9 @@ def pinsData():
 def scheduler():
   crons = map(parseJob, cron)
   templateData = {
-    'crons': crons,
-    'pins' : pins
+    'crons': crons
   }
-  return render_template("scheduler.html", **templateData)
+  return jsonify(**templateData)
 
 
 @app.route("/schedule")

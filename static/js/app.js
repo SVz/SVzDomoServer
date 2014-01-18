@@ -11,9 +11,58 @@ Ext.application({
       tabBar: {
         layout: { pack: 'center' }
       },
-      activeItem : 1,
+      activeItem : 0,
       items: [
-        {title: 'Schedule'},
+        {
+          title: 'Schedule',
+          xtype: 'dataview',
+          scrollable: {
+            direction: 'vertical'
+          },
+          cls: 'dataview-basic',
+          store: {
+            autoLoad: true,
+            fields: [{name: 'action', convert: function(newValue, model) {
+              return newValue.toUpperCase()
+            }}, 'activated', 'id', 'pic', 'time', 'hour', 'minute', 'day'],
+            proxy: {
+              type: 'ajax',
+              url: '/scheduler',
+              reader: {
+                type: 'json',
+                rootProperty: 'crons'
+              }
+            }
+          },
+          itemTpl: Ext.create('Ext.XTemplate',
+            '<div class="img pin-pic cronz" style="background-image: url(static/img/{pic});"></div>',
+              '<div class="content cronz">',
+                '<div class="timeclock">',
+                  '<div id="clock" class="light">',
+                    '<div class="display">',
+                    '  <div class="weekdays">',
+                    '     <span class="">MON</span>',
+                    '     <span>TUE</span>',
+                    '     <span class="active">WED</span>',
+                    '     <span>THU</span>',
+                    '     <span>FRI</span>',
+                    '     <span>SAT</span>',
+                    '     <span>SUN</span>',
+                    '  </div>',
+                    '  <div class="ampm">{action}</div>',
+                    '  <div class="alarm"></div>',
+                    '  <div class="digits">{hour}:{minute}</div>',
+                    '</div>',
+                  '</div>',
+                '</div>',
+              '</div>',
+                  {
+                      dayIn: function(value){
+                          console.log(value)
+                          return '';
+                      }
+                  })
+        },
         {
           title: 'Command',
           xtype: 'dataview',
@@ -75,3 +124,4 @@ Ext.application({
     }) 
   }
 });
+

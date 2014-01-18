@@ -21,6 +21,10 @@ html {
   margin-left: 20px !important;
 }
 
+.pin-pic.cronz {
+    margin-left: 5px !important;
+}
+
 .command-item .name {
     display: inline-block;
     height: 150px;
@@ -55,14 +59,37 @@ select {
     margin-left: 120px !important;
 }
 
+.content.cronz {
+    margin-left: 110px !important;
+}
+
+@font-face
+{
+    font-family: digital;
+    src: url('DS-DIGI.TTF');
+}
+
 .content .name {
     top: 5px;
     position: absolute;
+    font-weight: normal !important;
+    font-size: 18px !important;
 }
 
 .content .actions {
     position: absolute;
     bottom: 5px;
+}
+
+.content .timeclock {
+    position: absolute;
+    left: 2px;
+    top: 1px;
+}
+
+.content .timeclock .digits {
+    font-family: digital;
+    font-size: 45px;
 }
 
 .content .actions .turn {
