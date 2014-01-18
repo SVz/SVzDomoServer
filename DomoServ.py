@@ -57,7 +57,7 @@ def pinsData():
 
 @app.route("/scheduler")
 def scheduler():
-  cron = CronTab(user="sv")
+  cron = CronTab(user="pi")
   crons = map(parseJob, cron)
   templateData = {
     'crons': crons
