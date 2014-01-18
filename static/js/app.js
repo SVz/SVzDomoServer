@@ -88,7 +88,6 @@ Ext.application({
                         }],
                         listeners: {
                           change: function(p, lamp, opts) {
-                            console.log(p, lamp, opts)
                             if(!this.pickerTime) {
                               this.pickerTime = Ext.Viewport.add({
                                 xtype: 'picker',
@@ -124,12 +123,12 @@ Ext.application({
                                 }]
                               }) 
                             }
-                            else this.pickerTime.show()
+                            this.pickerTime.show()
                           }
                         }
                       });
-                    } else
-                      this.picker.show()
+                    }
+                    this.picker.show()
                   }
                 },
                 {xtype: 'spacer'}
