@@ -57,6 +57,7 @@ def pinsData():
 
 @app.route("/scheduler")
 def scheduler():
+  cron = CronTab(user="sv")
   crons = map(parseJob, cron)
   templateData = {
     'crons': crons
@@ -95,7 +96,7 @@ def deschedule():
   time = request.args.get("cron")
   cron.remove_all(comment=makeComment(lamp, action, time))
   cron.write()
-  return redirect(url_for("scheduler"))
+  return 'OK'
 
 @app.route("/video")
 def video():
