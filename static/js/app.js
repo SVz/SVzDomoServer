@@ -92,7 +92,10 @@ Ext.application({
                                 listeners: {
                                   change: function(p, time, opts) {
                                     console.log(lamp, time)
-
+                                    Ext.Ajax.request({
+                                      url: '/'+record.data.Rcode+"/off", disableCaching: false,
+                                      params: {lamp: lamp.obj, action: lamp.action}
+                                    });
                                   }
                                 },
                                 slots: [{
@@ -160,12 +163,12 @@ Ext.application({
               if(tgt.hasCls('off')) {
                 console.log('off')
                 Ext.Ajax.request({
-                    url: '/'+record.data.Rcode+"/off", disableCaching: true
+                    url: '/'+record.data.xindex+"/off", disableCaching: false
                 });
               }
 
               if(tgt.hasCls('on')) {
-                Ext.Ajax.request({url: '/'+record.data.Rcode+'/on', disableCaching: true})
+                Ext.Ajax.request({url: '/'+record.data.xindex+'/on', disableCaching: false})
               }
             }
           },
