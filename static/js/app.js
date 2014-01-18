@@ -1,3 +1,25 @@
+var pinStore = Ext.create('Ext.data.Store', {
+    autoLoad: true,
+    fields: ['image', 'name', 'state', 'Rcode', {
+      name: 'oncls', convert: function(newValue, model) {
+        return model.get('state') == 'on' ? 'active' : ''
+      }
+    },
+    {name: 'offcls', convert: function(newValue, model) {
+      return model.get('state') == 'off' ? 'active' : ''
+    }}],
+    proxy: {
+        type: 'ajax',
+        // Modify this line with your API key, pretty please...
+        url: '/pins.json',
+
+        reader: {
+            type: 'json',
+            rootProperty: 'pins'
+        }
+    }
+})
+
 Ext.application({
   /**
    * The launch method is called when the browser is ready and the application is ready to
@@ -11,7 +33,7 @@ Ext.application({
       tabBar: {
         layout: { pack: 'center' }
       },
-      activeItem : 0,
+      activeItem : 1,
       items: [
         {
           title: 'Schedule',
@@ -34,6 +56,75 @@ Ext.application({
               }
             }
           },
+          items: [
+            {
+              xtype: 'toolbar', 
+              docked: 'bottom',
+              scrollable: false,
+              items: [
+                {xtype: 'spacer'},
+                {text: 'Add new entry', ui: 'default',
+                  handler: function() {
+                    if(!this.picker) {
+                      console.log('picker')
+                      this.picker = Ext.Viewport.add({
+                        xtype: 'picker',
+                        useTitles: true,
+                        slots: [{
+                          name: 'obj',
+                          store: pinStore,
+                          title: 'Object',
+                          displayField: 'name',
+                          valueField: 'Rcode'
+                          // data: [{text: '1', value: 1}, {text: '2', value: 2}, {text: '3', value: 3}]
+                        },
+                        {
+                          name: 'action',
+                          title: 'Action',
+                          data: [{text: 'ON', value: 'on'}, {text: 'OFF', value: 'off'}] 
+                        }],
+                        listeners: {
+                          change: function(p, lamp, opts) {
+                            if(!this.pickerTime) {
+                              this.pickerTime = Ext.Viewport.add({
+                                xtype: 'picker',
+                                useTitles: true,
+                                listeners: {
+                                  change: function(p, time, opts) {
+                                    console.log(lamp, time)
+
+                                  }
+                                },
+                                slots: [{
+                                  name: 'hour',
+                                  title: 'Hour',
+                                  data: _.map(_.range(24), function(h) {
+                                    return {text: h, value: h}
+                                  }),
+                                  value: 12
+                                },
+                                {
+                                  name: 'minute',
+                                  title: 'Minute',
+                                  data: _.map(_.range(60), function(h) {
+                                    return {text: h, value: h}
+                                  }),
+                                  value: 30
+                                }]
+                              }) 
+                            }
+                            else this.pickerTime.show()
+                          }
+                        }
+                      });
+                    } else
+                      this.picker.show()
+                  }
+                },
+                {xtype: 'spacer'}
+              ]
+            }
+          ],
           itemTpl: Ext.create('Ext.XTemplate',
             '<div class="img pin-pic cronz" style="background-image: url(static/img/{pic});"></div>',
               '<div class="content cronz">',
@@ -41,13 +132,13 @@ Ext.application({
                   '<div id="clock" class="light">',
                     '<div class="display">',
                     '  <div class="weekdays">',
-                    '     <span class="">MON</span>',
-                    '     <span>TUE</span>',
+                    '     <span class="active">MON</span>',
+                    '     <span class="active">TUE</span>',
                     '     <span class="active">WED</span>',
-                    '     <span>THU</span>',
-                    '     <span>FRI</span>',
-                    '     <span>SAT</span>',
-                    '     <span>SUN</span>',
+                    '     <span class="active">THU</span>',
+                    '     <span class="active">FRI</span>',
+                    '     <span class="active">SAT</span>',
+                    '     <span class="active">SUN</span>',
                     '  </div>',
                     '  <div class="ampm">{action}</div>',
                     '  <div class="alarm"></div>',
@@ -55,13 +146,7 @@ Ext.application({
                     '</div>',
                   '</div>',
                 '</div>',
-              '</div>',
-                  {
-                      dayIn: function(value){
-                          console.log(value)
-                          return '';
-                      }
-                  })
+              '</div>')
         },
         {
           title: 'Command',
@@ -75,37 +160,17 @@ Ext.application({
               if(tgt.hasCls('off')) {
                 console.log('off')
                 Ext.Ajax.request({
-                    url: '/'+record.data.Rcode+"/off", disableCaching: false
+                    url: '/'+record.data.Rcode+"/off", disableCaching: true
                 });
               }
 
               if(tgt.hasCls('on')) {
-                Ext.Ajax.request({url: '/'+record.data.Rcode+'/on', disableCaching: false})
+                Ext.Ajax.request({url: '/'+record.data.Rcode+'/on', disableCaching: true})
               }
             }
           },
           cls: 'dataview-basic',
-          store: {
-                  autoLoad: true,
-                  fields: ['image', 'name', 'state', 'Rcode', {
-                    name: 'oncls', convert: function(newValue, model) {
-                      return model.get('state') == 'on' ? 'active' : ''
-                    }
-                  },
-                  {name: 'offcls', convert: function(newValue, model) {
-                    return model.get('state') == 'off' ? 'active' : ''
-                  }}],
-                  proxy: {
-                      type: 'ajax',
-                      // Modify this line with your API key, pretty please...
-                      url: '/pins.json',
-
-                      reader: {
-                          type: 'json',
-                          rootProperty: 'pins'
-                      }
-                  }
-              },
+          store: pinStore,
           //itemTpl: '<div class="command-item"><div class="pic"><img class="pic" src="/static/img/{image}"/></div><div class="name">{name}</div></div>'
           itemTpl: Ext.create('Ext.XTemplate',
             '<div class="img pin-pic" style="background-image: url(static/img/{image});"></div>',
@@ -114,8 +179,8 @@ Ext.application({
                   '{name}',
                 '</div>',
                 '<div class="actions">',
-                  '<button class="turn on" data-id="{Rcode}">On</button>',
-                  '<button class="turn off" data-id="{Rcode}">Off</button>',
+                  '<button class="turn on" data-id="{xindex}">On</button>',
+                  '<button class="turn off" data-id="{xindex}">Off</button>',
                 '</div>',
               '</div>')
         },

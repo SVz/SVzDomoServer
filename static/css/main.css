@@ -22,7 +22,7 @@ html {
 }
 
 .pin-pic.cronz {
-    margin-left: 5px !important;
+    margin-left: 0px !important;
 }
 
 .command-item .name {
@@ -60,7 +60,7 @@ select {
 }
 
 .content.cronz {
-    margin-left: 110px !important;
+    margin-left: 90px !important;
 }
 
 @font-face
@@ -83,7 +83,7 @@ select {
 
 .content .timeclock {
     position: absolute;
-    left: 2px;
+    left: 0px;
     top: 1px;
 }
 

@@ -16,10 +16,10 @@ basic_auth = BasicAuth(app)
 
 pins = [
    {'name' : 'Lampe Rue', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '0','image' : 'baie.jpg'},
+   {'name' : 'Lampe Tele', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '4','image' : 'tele.jpg'},
    {'name' : 'Lampe Plafond', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '1','image' : 'plafond.jpg'},
    {'name' : 'Volet Rue', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '2','image' : 'volet.jpg'},
-   {'name' : 'XBMC', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '3','image' : 'XBMC.jpg'},
-   {'name' : 'Lampe Tele', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '4','image' : 'tele.jpg'}
+   {'name' : 'XBMC', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '3','image' : 'XBMC.jpg'}
    ]
 
 cron = CronTab(user="pi")
@@ -109,6 +109,7 @@ def videoStart(action):
 @app.route("/<changePin>/<action>")
 def action(changePin, action):
    changePin = int(changePin)
+
    deviceName = pins[changePin]['name']
    Ecode = pins[changePin]['Ecode']
    Rcode = pins[changePin]['Rcode']
