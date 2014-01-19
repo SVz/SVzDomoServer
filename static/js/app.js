@@ -49,7 +49,7 @@ Ext.application({
       tabBar: {
         layout: { pack: 'center' }
       },
-      activeItem : 0,
+      activeItem : 1,
       items: [
         {
           title: 'Schedule',
@@ -208,7 +208,30 @@ Ext.application({
                 '</div>',
               '</div>')
         },
-        {title: 'View', html:'<div class="vid-container"><img class="vid" src="http://88.124.156.1:8090/?action=stream" alt="cam stream"/></div>'}
+        {
+	   title: 'View',
+	   html:'<div class="vid-container"><img class="vid" src="http://88.124.156.1:8090/?action=stream" alt="cam stream"/></div>',
+	   items : [
+		{xtype: 'toolbar', 
+                 docked: 'bottom',
+                 scrollable: false,
+		 items : [
+			{xtype: 'spacer'},
+			{text: 'Start', ui: 'default',
+			  handler: function() {
+			    Ext.Ajax.request({url: '/video/start',disableCaching: false, method: 'GET'});
+			  },
+			},
+			{text: 'Stop', ui: 'default',
+			  handler: function() {
+			    Ext.Ajax.request({url: '/video/stop',disableCaching: false, method: 'GET'});
+			  },
+			},
+			{xtype: 'spacer'}
+		  ]
+		}
+	   ]
+	}
       ]
     }) 
   }
