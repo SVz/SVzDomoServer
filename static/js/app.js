@@ -220,12 +220,14 @@ Ext.application({
 			{text: 'Start', ui: 'default',
 			  handler: function() {
 			    Ext.Ajax.request({url: '/video/start',disableCaching: false, method: 'GET'});
+			    Ext.Msg.alert('Information','Video started !',Ext.emptyFn);
 			  },
 			},
 			{text: 'Stop', ui: 'default',
 			  handler: function() {
 			    Ext.Ajax.request({url: '/video/stop',disableCaching: false, method: 'GET'});
-			  },
+			    Ext.Msg.alert('Information','Video stopped !',Ext.emptyFn);
+			    },
 			},
 			{xtype: 'spacer'}
 		  ]
