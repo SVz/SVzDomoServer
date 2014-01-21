@@ -193,7 +193,7 @@ Ext.application({
               }
             }
           },
-          cls: 'dataview-basic',
+         cls: 'dataview-basic',
           store: pinStore,
           //itemTpl: '<div class="command-item"><div class="pic"><img class="pic" src="/static/img/{image}"/></div><div class="name">{name}</div></div>'
           itemTpl: Ext.create('Ext.XTemplate',
@@ -206,7 +206,15 @@ Ext.application({
                   '<button class="turn on" data-id="{xindex}">On</button>',
                   '<button class="turn off" data-id="{xindex}">Off</button>',
                 '</div>',
-              '</div>')
+              '</div>'),
+	  items : [
+	    {
+		xtype: 'toolbar',
+		title : 'Domo by ioRek/SVz',
+                docked: 'bottom',
+                scrollable: false
+	    }
+	  ]
         },
         {
 	   title: 'View',
