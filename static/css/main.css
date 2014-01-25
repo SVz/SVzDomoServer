@@ -63,6 +63,11 @@ select {
     margin-left: 90px !important;
 }
 
+.svz .x-innerhtml {
+    font-weight: normal;
+    font-size: 16px;
+}
+
 @font-face
 {
     font-family: digital;

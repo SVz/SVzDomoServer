@@ -208,9 +208,10 @@ Ext.application({
               '</div>'),
 	  items : [
 	    {
-		xtype: 'toolbar',
+		xtype: 'titlebar',
 		title : 'Domo by ioRek/SVz',
                 docked: 'bottom',
+                cls: 'svz',
                 scrollable: false
 	    }
 	  ]
