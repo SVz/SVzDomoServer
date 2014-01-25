@@ -70,7 +70,7 @@ Ext.application({
                       // pinStore.sync()
                     }
                   });
-                  cronStore.removeAt(model.data.xindex)
+                  cronStore.remove(model)
                 }
               })
             }
@@ -84,7 +84,7 @@ Ext.application({
                 {xtype: 'spacer'},
                 {text: 'Add new entry', ui: 'default',
                   handler: function() {
-                    if(!this.picker) {
+                    if(this.picker) this.picker.destroy()
                       this.picker = Ext.Viewport.add({
                         xtype: 'picker',
                         useTitles: true,
@@ -109,7 +109,6 @@ Ext.application({
                                 useTitles: true,
                                 listeners: {
                                   change: function(p, time, opts) {
-                                    console.log(lamp, time)
                                     Ext.Ajax.request({
                                       url: '/schedule', disableCaching: false, method: 'GET',
                                       params: {id: pinStore.find('name', lamp.obj), action: lamp.action, cron: time.minute + ' ' + time.hour + ' * * *'},
@@ -137,13 +136,12 @@ Ext.application({
                                   value: 30
                                 }]
                               }) 
-                            }
+                            } else 
                             this.pickerTime.show()
                           }
                         }
                       });
-                    }
-                    this.picker.show()
+                    
                   }
                 },
                 {xtype: 'spacer'}
