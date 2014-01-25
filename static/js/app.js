@@ -109,14 +109,15 @@ Ext.application({
                                 useTitles: true,
                                 listeners: {
                                   change: function(p, time, opts) {
+                                    var pinId = pinStore.find('name', lamp.obj)
                                     Ext.Ajax.request({
                                       url: '/schedule', disableCaching: false, method: 'GET',
-                                      params: {id: pinStore.find('name', lamp.obj), action: lamp.action, cron: time.minute + ' ' + time.hour + ' * * *'},
+                                      params: {id: pinId, action: lamp.action, cron: time.minute + ' ' + time.hour + ' * * *'},
                                       success: function(response){
                                         // pinStore.sync()
                                       }
                                     });
-                                    cronStore.add({action: lamp.action, minute: time.minute, hour: time.hour, pic: pinStore.findRecord('name', lamp.obj).get('image')})
+                                    cronStore.add({index: pinId, action: lamp.action, minute: time.minute, hour: time.hour, pic: pinStore.findRecord('name', lamp.obj).get('image')})
                                   }
                                 },
                                 slots: [{
