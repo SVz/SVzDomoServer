@@ -19,6 +19,7 @@ pins = [
    {'name' : 'Lampe Tele', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '4','image' : 'tele.jpg'},
    {'name' : 'Lampe Plafond', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '1','image' : 'plafond.jpg'},
    {'name' : 'Volet Rue', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '2','image' : 'volet.jpg'},
+   {'name' : 'Volet Jardin', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '5','image' : 'voletjardin.jpg'},
    {'name' : 'XBMC', 'state' : 'off', 'Ecode' : '9818818', 'Rcode' : '3','image' : 'XBMC.jpg'}
    ]
 
