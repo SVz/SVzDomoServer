@@ -159,7 +159,7 @@ Ext.application({
             }
           ],
           itemTpl: Ext.create('Ext.XTemplate',
-            '<div class="img pin-pic cronz" style="background-image: url(static/img/{pic});"></div>',
+            '<div class="img pin-pic cronz" style="background-image: url(http://88.124.156.1:8000/static/img/{pic});"></div>',
               '<div class="content cronz">',
                 '<div class="timeclock">',
                   '<div id="clock" class="light">',
@@ -209,7 +209,7 @@ Ext.application({
           store: pinStore,
           //itemTpl: '<div class="command-item"><div class="pic"><img class="pic" src="/static/img/{image}"/></div><div class="name">{name}</div></div>'
           itemTpl: Ext.create('Ext.XTemplate',
-            '<div class="img pin-pic" style="background-image: url(static/img/{image});"></div>',
+            '<div class="img pin-pic" style="background-image: url(http://88.124.156.1:8000/static/img/{image});"></div>',
               '<div class="content">',
                 '<div class="name">',
                   '{name}',

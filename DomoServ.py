@@ -11,7 +11,7 @@ pathexe = "/home/pi/git/SVzDomoServer/"
 
 app.config['BASIC_AUTH_USERNAME'] = 'SVz'
 app.config['BASIC_AUTH_PASSWORD'] = '1000enes'
-app.config['BASIC_AUTH_FORCE'] = True
+#app.config['BASIC_AUTH_FORCE'] = True
 basic_auth = BasicAuth(app)
 
 pins = [
@@ -50,6 +50,7 @@ def main():
    return render_template('index.html', **templateData)
 
 @app.route("/pins.json")
+@basic_auth.required
 def pinsData():
   templateData= {
     'pins': pins
@@ -57,6 +58,7 @@ def pinsData():
   return jsonify(**templateData)
 
 @app.route("/scheduler")
+@basic_auth.required
 def scheduler():
   crons = map(parseJob, cron())
   templateData = {
@@ -66,6 +68,7 @@ def scheduler():
 
 
 @app.route("/schedule")
+@basic_auth.required
 def schedule():
   time = request.args.get("cron")
   action = request.args.get("action")
@@ -78,6 +81,7 @@ def schedule():
   return "OK"
 
 @app.route("/schedule/<actionJob>")
+@basic_auth.required
 def activate_deactivate(actionJob):
   time = request.args.get("cron")
   action = request.args.get("action")
@@ -92,6 +96,7 @@ def activate_deactivate(actionJob):
   return redirect(url_for("scheduler"))
 
 @app.route("/deschedule")
+@basic_auth.required
 def deschedule():
   lamp = request.args.get("id")
   action = request.args.get("action")
@@ -102,6 +107,7 @@ def deschedule():
   return 'OK'
 
 @app.route("/video")
+@basic_auth.required
 def video():
   return render_template('video.html')
 
@@ -111,6 +117,7 @@ def videoStart(action):
   return redirect(url_for("video"))
 
 @app.route("/<changePin>/<action>")
+@basic_auth.required
 def action(changePin, action):
    changePin = int(changePin)
 
